@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/serialSendText"
         android:layout_alignRight="@+id/serialSendText"
-        android:text="Send Data" />
+        android:text="Send Data"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/editText2"
@@ -63,7 +64,8 @@
         android:inputType="text"
         android:text="Data sending Area"
         android:textColor="#999999"
-        android:textSize="20dip" />
+        android:textSize="20dip"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/buttonScan"
