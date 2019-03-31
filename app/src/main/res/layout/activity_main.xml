@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,27 +9,44 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:padding="16dp">
 
-    <ScrollView
+    <com.dfrobot.angelo.blunobasicdemo.JoystickView
+        android:id="@+id/joystickView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:gravity="center_horizontal"
+        custom:JV_backgroundColor="#009688"
+        custom:JV_borderColor="#00796B"
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#FF6E40"
+        custom:JV_buttonSizeRatio="15%"
+        custom:JV_fixedCenter="false" />
+
+    <ScrollView
         android:id="@+id/scrollView"
+        android:layout_width="312dp"
+        android:layout_height="143dp"
+        android:layout_above="@+id/joystickView"
         android:layout_below="@+id/editText2"
         android:layout_alignStart="@+id/editText2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/serialSendText">
+        android:layout_alignEnd="@+id/serialSendText"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="12dp">
 
         <TextView
             android:id="@+id/serialReveicedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="10sp"
             android:layout_below="@+id/editText2"
             android:layout_alignStart="@+id/editText2"
             android:layout_alignEnd="@+id/serialSendText"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:ems="10"
+            android:textSize="20sp" />
     </ScrollView>
 
     <Button
@@ -74,5 +92,45 @@
         android:layout_alignLeft="@+id/serialSendText"
         android:layout_alignParentTop="true"
         android:text="Scan" />
+
+    <TextView
+        android:id="@+id/textView_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/joystickView"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="0dp"
+        android:text="0°"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/textView_strength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView_angle"
+        android:textSize="20sp"
+        android:text="0%"/>
+
+
+    <TextView
+        android:id="@+id/textView_coordinate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView_strength"
+        android:textSize="20sp"
+        android:text="x050:x050" />
+
+    <TextView
+        android:id="@+id/textView_motorValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/joystickView"
+        android:layout_marginTop="-1dp"
+        android:text="L 000: R 000"
+        android:textSize="20sp" />
 
 </RelativeLayout>
