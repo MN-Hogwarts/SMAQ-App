@@ -47,7 +47,7 @@ public abstract  class BlunoLibrary  extends Activity{
 			mBluetoothLeService.writeCharacteristic(mSCharacteristic);
 		}
 	}
-	
+
 	private int mBaudrate=115200;	//set the default baud rate to 115200
 	private String mPassword="AT+PASSWOR=DFRobot\r\n";
 	
@@ -378,9 +378,9 @@ public abstract  class BlunoLibrary  extends Activity{
 			break;
 		}
     	
-    	
+
     }
-    
+
 	void scanLeDevice(final boolean enable) {
 		if (enable) {
 			// Stops scanning after a pre-defined scan period.

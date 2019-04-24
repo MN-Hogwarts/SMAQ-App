@@ -1,8 +1,10 @@
 package com.dfrobot.angelo.blunobasicdemo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,11 +13,17 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity  extends BlunoLibrary {
-	private Button buttonScan;
+    private static final String TAG = "MainActivity";
+    private Button buttonScan;
 	private Button buttonSerialSend;
 	private EditText serialSendText;
 	private TextView serialReceivedText;
-	
+
+	private TextView mTextViewAngle;
+	private TextView mTextViewStrength;
+	private TextView mTextViewCoordinate;
+	private TextView mTextViewMotors;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +57,56 @@ public class MainActivity  extends BlunoLibrary {
 				buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
 			}
 		});
+
+		mTextViewAngle = (TextView) findViewById(R.id.textView_angle);
+		mTextViewStrength = (TextView) findViewById(R.id.textView_strength);
+		mTextViewCoordinate = (TextView) findViewById(R.id.textView_coordinate);
+		mTextViewMotors = (TextView) findViewById(R.id.textView_motorValues);
+		final double[] lmotor = {0};
+		final double[] rmotor = {0};
+
+		final JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
+		joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
+			@SuppressLint("DefaultLocale")
+			@Override
+			public void onMove(int angle, int strength) {
+				String ang = angle + "°";
+				String str = strength + "%";
+				mTextViewAngle.setText(ang);
+				mTextViewStrength.setText(str);
+				mTextViewCoordinate.setText(
+						String.format("x%03d:y%03d",
+								joystick.getNormalizedX(),
+								joystick.getNormalizedY())
+				);
+				lmotor[0] = Math.cos( (angle / 2) * Math.PI / 180) * Math.sqrt(2) * strength / 100;
+				if (lmotor[0] > 1) {
+					lmotor[0] = 1;
+				}
+				else if (lmotor[0] < -1) {
+					lmotor[0] = -1;
+				}
+
+				rmotor[0] = Math.cos( (((-angle + 540) % 360) / 2) * Math.PI / 180) * Math.sqrt(2) * strength / 100;
+				if (rmotor[0] > 1) {
+					rmotor[0] = 1;
+				}
+				else if (rmotor[0] < -1) {
+					rmotor[0] = -1;
+				}
+
+				String motorVals = String.format("L%03fR%03f",
+                        lmotor[0],
+                        rmotor[0]);
+
+				mTextViewMotors.setText(motorVals);
+
+				serialSend(motorVals);
+
+                Log.i(TAG, "onMove: " + motorVals);
+			}
+		});
+
 	}
 
 	protected void onResume(){
@@ -108,7 +166,8 @@ public class MainActivity  extends BlunoLibrary {
 	@Override
 	public void onSerialReceived(String theString) {							//Once connection data received, this function will be called
 		// TODO Auto-generated method stub
-		serialReceivedText.append(theString);							//append the text into the EditText
+		serialReceivedText.setText(theString);							//append the text into the EditText
+        Log.i(TAG, "onSerialReceived: " + theString);
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
 		((ScrollView)serialReceivedText.getParent()).fullScroll(View.FOCUS_DOWN);
 	}
