@@ -20,4 +20,14 @@
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
     <string name="action_settings">Action settings</string>
+
+    <!-- GraphView and Data Displaying -->
+    <string name="string_end">end</string>
+    <string name="temperature">temperature</string>
+    <string name="ph">pH</string>
+    <string name="turbidity">Turbidity</string>
+    <string name="average_temperature">Average Temperature:</string>
+    <string name="average_turbidity">Average Turbidity:</string>
+    <string name="average_ph">Average pH:</string>
+    <string name="temp">Temperature</string>
 </resources>
