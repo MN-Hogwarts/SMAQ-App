@@ -10,10 +10,6 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -21,9 +17,9 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
@@ -54,9 +50,9 @@ public class MainActivity  extends BlunoLibrary {
 	double pH;
 
 	// For graphs
-    public static LineGraphSeries<DataPoint> s1;
-    public static LineGraphSeries<DataPoint> s2;
-    public static LineGraphSeries<DataPoint> s3;
+    private LineGraphSeries<DataPoint> s1;
+    private LineGraphSeries<DataPoint> s2;
+    private LineGraphSeries<DataPoint> s3;
     private static final Random RANDOM = new Random();
     private static int lastX = 0;
     private GraphView tempGraph;
@@ -65,8 +61,11 @@ public class MainActivity  extends BlunoLibrary {
     public static ArrayList<Double> tempArray;
     public static ArrayList<Double> phArray;
     public static ArrayList<Double> turbArray;
-    private Thread worker;
-    private final AtomicBoolean running = new AtomicBoolean(false);
+   // public static ArrayList<Integer> timeArray;
+   private final DecimalFormat df = new DecimalFormat("0.#");
+	private TextView currentTemp;
+	private TextView currentTurb;
+	private TextView currentpH;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +118,16 @@ public class MainActivity  extends BlunoLibrary {
         tempGraph.addSeries(s1);
         phGraph.addSeries(s2);
         turbGraph.addSeries(s3);
+        tempGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        tempGraph.getGridLabelRenderer().setLabelVerticalWidth(75);
+        phGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+		phGraph.getGridLabelRenderer().setLabelVerticalWidth(75);
+        turbGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+		turbGraph.getGridLabelRenderer().setLabelVerticalWidth(75);
         tempArray = new ArrayList<Double>();
         phArray = new ArrayList<Double>();
         turbArray = new ArrayList<Double>();
+      //  timeArray = new ArrayList<Integer>();
         Viewport viewport1 = tempGraph.getViewport();
         viewport1.setXAxisBoundsManual(true);
         viewport1.setMinX(0);
@@ -135,6 +141,10 @@ public class MainActivity  extends BlunoLibrary {
         viewport3.setMinX(0);
         viewport3.setMaxX(4);
         lastX = 0;
+
+        currentTemp = (TextView) findViewById(R.id.currTemp);
+        currentTurb = (TextView) findViewById(R.id.currTurb);
+        currentpH = (TextView) findViewById(R.id.currpH);
 
 		final JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
 		joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
@@ -311,9 +321,12 @@ public class MainActivity  extends BlunoLibrary {
 
 				try {
 					turb = Double.valueOf(turbStr);        // Converting string to double
+					turb = -1120.4*turb*turb + 5742.3 * turb -4352.9;
+					if (turb < 0){ turb = 0;}
 					System.out.println("Turbidity: " + turb);
 					turbArray.add(turb);
 					s3.appendData(new DataPoint(lastX, turbArray.get(lastX)), true, 10000);
+					currentTurb.setText(df.format(turb) + " NTU");
 				} catch (NumberFormatException n) {
 					System.out.println("Number Format Exception");
 					n.printStackTrace();
@@ -325,6 +338,7 @@ public class MainActivity  extends BlunoLibrary {
 					System.out.println("pH: " + pH);
 					phArray.add(pH);
 					s2.appendData(new DataPoint(lastX, phArray.get(lastX)), true, 10000);
+					currentpH.setText(df.format(pH));
 				} catch (NumberFormatException n) {
 					System.out.println("Number Format Exception");
 					n.printStackTrace();
@@ -336,6 +350,7 @@ public class MainActivity  extends BlunoLibrary {
 					System.out.println("Temperature: " + temp);
 					tempArray.add(temp);
 					s1.appendData(new DataPoint(lastX, tempArray.get(lastX)), true, 10000);
+					currentTemp.setText(df.format(temp)+"\u00B0" + "F");
 
 				} catch (NumberFormatException n) {
 					System.out.println("Number Format Exception");
@@ -379,28 +394,17 @@ public class MainActivity  extends BlunoLibrary {
 		}
 	}
 
-	static LineGraphSeries<DataPoint> getS1(){
-		return s1;
-	}
-	static LineGraphSeries<DataPoint> getS2(){
-		return s2;
-	}
-	static LineGraphSeries<DataPoint> getS3(){
-		return s3;
-	}
 	static ArrayList<Double> getTempArray(){
 		return tempArray;
 	}
 	static ArrayList<Double> getPhArray(){
 		return phArray;
 	}
-	static ArrayList<Double> getTurbArray(){
-		return turbArray;
-	}
+	static ArrayList<Double> getTurbArray(){ return turbArray; }
+	//static ArrayList<Integer> getTimeArray(){return timeArray;}
 
 	// For end button
 	public void sendMessage(View view) {
-		//stop();
 		Intent intent = new Intent(this, SummaryActivity.class);
 		startActivity(intent);
 		finish();
