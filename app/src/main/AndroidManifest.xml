@@ -28,6 +28,7 @@ PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE) -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SummaryActivity"></activity>
         <service android:name="com.dfrobot.angelo.blunobasicdemo.BluetoothLeService" android:enabled="true"/>
 
     </application>

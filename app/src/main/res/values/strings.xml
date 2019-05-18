@@ -22,7 +22,7 @@
     <string name="action_settings">Action settings</string>
 
     <!-- GraphView and Data Displaying -->
-    <string name="string_end">end</string>
+    <string name="string_end">End</string>
     <string name="temperature">temperature</string>
     <string name="ph">pH</string>
     <string name="turbidity">Turbidity</string>
@@ -30,4 +30,5 @@
     <string name="average_turbidity">Average Turbidity:</string>
     <string name="average_ph">Average pH:</string>
     <string name="temp">Temperature</string>
+    <string name="default_connection_state">Unknown</string>
 </resources>
