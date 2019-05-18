@@ -31,4 +31,6 @@
     <string name="average_ph">Average pH:</string>
     <string name="temp">Temperature</string>
     <string name="default_connection_state">Unknown</string>
+
+    <string name="new_survey">New</string>
 </resources>
