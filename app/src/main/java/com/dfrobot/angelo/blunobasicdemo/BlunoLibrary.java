@@ -81,13 +81,13 @@ public abstract  class BlunoLibrary  extends Activity{
 	public connectionStateEnum mConnectionState = connectionStateEnum.isNull;
 	private static final int REQUEST_ENABLE_BT = 1;
 
-	private Handler mHandler= new Handler();
+	Handler mHandler= new Handler();
 	
 	public boolean mConnected = false;
 
     private final static String TAG = BlunoLibrary.class.getSimpleName();
 
-    private Runnable mConnectingOverTimeRunnable=new Runnable(){
+    Runnable mConnectingOverTimeRunnable=new Runnable(){
 
 		@Override
 		public void run() {
