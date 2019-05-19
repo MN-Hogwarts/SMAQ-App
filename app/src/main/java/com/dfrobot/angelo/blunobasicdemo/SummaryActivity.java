@@ -13,6 +13,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import static com.dfrobot.angelo.blunobasicdemo.cBaseApplication.mBluetoothLeService;
+
 public class SummaryActivity extends AppCompatActivity {
     private LineGraphSeries<DataPoint> s1;
     private LineGraphSeries<DataPoint> s2;
@@ -53,6 +55,9 @@ public class SummaryActivity extends AppCompatActivity {
         avgTemp = (TextView) findViewById(R.id.avgTemp);
         avgpH = (TextView) findViewById(R.id.avgPh);
         avgTurb = (TextView) findViewById(R.id.avgturb);
+
+        System.out.println(mBluetoothLeService.mConnectionState);
+
     }
 
     public double average(ArrayList<Double> array){

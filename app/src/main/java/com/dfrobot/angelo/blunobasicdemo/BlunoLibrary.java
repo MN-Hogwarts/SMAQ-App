@@ -29,6 +29,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.dfrobot.angelo.blunobasicdemo.cBaseApplication.mBluetoothLeService;
+
 public abstract  class BlunoLibrary  extends Activity{
 
 	private Context mainContext=this;
@@ -68,7 +70,7 @@ public abstract  class BlunoLibrary  extends Activity{
 		TextView deviceAddress;
 	}
     private static BluetoothGattCharacteristic mSCharacteristic, mModelNumberCharacteristic, mSerialPortCharacteristic, mCommandCharacteristic;
-    BluetoothLeService mBluetoothLeService;
+    //BluetoothLeService mBluetoothLeService;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
 	private LeDeviceListAdapter mLeDeviceListAdapter=null;

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.dfrobot.angelo.blunobasicdemo.cBaseApplication.mBluetoothLeService;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 
@@ -74,33 +75,7 @@ public class MainActivity  extends BlunoLibrary {
 		setContentView(R.layout.activity_main1);
         onCreateProcess();														//onCreate Process by BlunoLibrary
 
-
         serialBegin(115200);													//set the Uart Baudrate on BLE chip to 115200
-
-//        serialReceivedText=(TextView) findViewById(R.id.serialReveicedText);	//initial the EditText of the received data
-//        serialSendText=(EditText) findViewById(R.id.serialSendText);			//initial the EditText of the sending data
-//
-//        buttonSerialSend = (Button) findViewById(R.id.buttonSerialSend);		//initial the button for sending the data
-//        buttonSerialSend.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//
-//				serialSend(serialSendText.getText().toString());				//send the data to the BLUNO
-//			}
-//		});
-//
-//        buttonScan = (Button) findViewById(R.id.buttonScan);					//initial the button for scanning the BLE device
-//        buttonScan.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//
-//				buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
-//			}
-//		});
 
 		connectionText=(TextView) findViewById(R.id.connectionState);	// ONE
 		mTextViewAngle = (TextView) findViewById(R.id.textView_angle2);
@@ -186,6 +161,16 @@ public class MainActivity  extends BlunoLibrary {
 		filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
 		filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
 		this.registerReceiver(mReceiver, filter);
+
+		if (mBluetoothLeService != null) {
+			System.out.println(mBluetoothLeService.mBluetoothDeviceAddress);
+			System.out.println(mBluetoothLeService.mConnectionState);
+			mBluetoothLeService.connect(mBluetoothLeService.mBluetoothDeviceAddress);
+			System.out.println(mBluetoothLeService.mConnectionState);
+		}
+		else {
+			System.out.println("Bluetooth null");
+		}
 	}
 
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -238,9 +223,16 @@ public class MainActivity  extends BlunoLibrary {
 		super.onResume();
 		System.out.println("BlUNOActivity onResume");
 		onResumeProcess();														//onResume Process by BlunoLibrary
+		if (mBluetoothLeService != null) {
+			System.out.println(mBluetoothLeService.mBluetoothDeviceAddress);
+			System.out.println(mBluetoothLeService.mConnectionState);
+			mBluetoothLeService.connect(mBluetoothLeService.mBluetoothDeviceAddress);
+            System.out.println(mBluetoothLeService.mConnectionState);
+		}
+		else {
+			System.out.println("Bluetooth null");
+		}
 	}
-	
-	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,18 +243,18 @@ public class MainActivity  extends BlunoLibrary {
     @Override
     protected void onPause() {
         super.onPause();
-        onPauseProcess();														//onPause Process by BlunoLibrary
+//        onPauseProcess();														//onPause Process by BlunoLibrary
     }
 	
 	protected void onStop() {
 		super.onStop();
-		onStopProcess();														//onStop Process by BlunoLibrary
+//		onStopProcess();														//onStop Process by BlunoLibrary
 	}
     
 	@Override
     protected void onDestroy() {
-        super.onDestroy();	
-        onDestroyProcess();														//onDestroy Process by BlunoLibrary
+        super.onDestroy();
+//        onDestroyProcess();														//onDestroy Process by BlunoLibrary
     }
 
 	@Override
