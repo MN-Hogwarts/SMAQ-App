@@ -33,4 +33,6 @@
     <string name="default_connection_state">Unknown</string>
 
     <string name="new_survey">New</string>
+    <string name="degreesF" translatable="false">°F</string>
+    <string name="ntu">NTU</string>
 </resources>
