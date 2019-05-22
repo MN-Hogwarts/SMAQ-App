@@ -10,10 +10,11 @@
 
     <TextView
         android:id="@+id/currTemp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:textSize="30sp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="24dp"
+        android:textSize="24sp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintStart_toEndOf="@+id/cardView"
         card_view:layout_constraintTop_toTopOf="parent" />
@@ -31,23 +32,24 @@
         card_view:layout_constraintTop_toTopOf="@+id/joystickView" />
 
     <TextView
-        android:id="@+id/textView_strength2"
+        android:id="@+id/textView_coordinate2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_angle2"
         android:layout_alignParentEnd="true"
-        android:text="0%"
+        android:text="x050:y050"
         android:textSize="20sp"
+        android:visibility="invisible"
         card_view:layout_constraintStart_toStartOf="@+id/textView_angle2"
-        card_view:layout_constraintTop_toBottomOf="@+id/textView_coordinate2" />
+        card_view:layout_constraintTop_toBottomOf="@+id/textView_strength2" />
 
     <TextView
-        android:id="@+id/textView_coordinate2"
+        android:id="@+id/textView_strength2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_strength2"
+        android:layout_below="@+id/textView_coordinate2"
         android:layout_alignParentEnd="true"
-        android:text="x050:x050"
+        android:text="0%"
         android:textSize="20sp"
         card_view:layout_constraintStart_toStartOf="@+id/textView_angle2"
         card_view:layout_constraintTop_toBottomOf="@+id/textView_angle2" />
@@ -57,7 +59,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/joystickView"
-        android:layout_marginBottom="36dp"
         android:text="L 000: R 000"
         android:textSize="20sp"
         card_view:layout_constraintBottom_toBottomOf="@+id/joystickView"
@@ -84,10 +85,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center_horizontal"
-        card_view:JV_backgroundColor="#009688"
-        card_view:JV_borderColor="#00796B"
+        card_view:JV_backgroundColor="#091963"
+        card_view:JV_borderColor="#39B6FF"
         card_view:JV_borderWidth="4dp"
-        card_view:JV_buttonColor="#FF6E40"
+        card_view:JV_buttonColor="#39B6FF"
         card_view:JV_buttonSizeRatio="15%"
         card_view:JV_fixedCenter="false"
         card_view:layout_constraintEnd_toEndOf="parent"
@@ -232,7 +233,7 @@
         android:id="@+id/currTurb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="236dp"
         android:layout_marginBottom="68dp"
         android:textSize="24sp"
@@ -244,7 +245,7 @@
         android:id="@+id/currpH"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="226dp"
         android:layout_marginBottom="221dp"
         android:textSize="24sp"
